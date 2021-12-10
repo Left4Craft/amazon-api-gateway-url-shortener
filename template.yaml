@@ -59,13 +59,9 @@ Resources:
     Properties:
       StageName: Prod
       EndpointConfiguration: REGIONAL
-      TracingEnabled: true
       MethodSettings:
         - HttpMethod: "*"
           ResourcePath: "/*"
-          LoggingLevel: INFO
-          DataTraceEnabled: true
-          MetricsEnabled: true
           ThrottlingRateLimit: 2000
           ThrottlingBurstLimit: 1000
         - HttpMethod: "GET"
@@ -174,8 +170,6 @@ Resources:
           ErrorCode: 403
         - ErrorCachingMinTTL: 5
           ErrorCode: 500
-        Logging:
-          Bucket: !GetAtt CloudFrontAccessLogsBucket.DomainName
         Enabled: true
         Origins:
           - CustomOriginConfig:
@@ -185,8 +179,8 @@ Resources:
             OriginPath: /Prod
 
   ##   CloudFront access logs storage
-  CloudFrontAccessLogsBucket:
-    Type: AWS::S3::Bucket
+  # CloudFrontAccessLogsBucket:
+  #   Type: AWS::S3::Bucket
 
   ##   Amplify Application for hosting
   AmplifyApp:
